@@ -1,6 +1,5 @@
 """
-Description: Data pipeline with Luigi code snippet. Saving this snippet because I may need it
-later.
+Description: Data pipeline with Luigi code template.
 
 Date: Wed. 1/31/24 @ 5:07 PM EST
 """
