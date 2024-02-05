@@ -1,6 +1,6 @@
 """
-Description: Data pipeline connecting to PostgresSQL, reading from an existing table,
-doing data preprocessing, and then writing to a new table.
+Description: Data pipeline template connecting to PostgresSQL, reading from an existing 
+table, doing data preprocessing, and then writing to a new table.
 
 Date: Sat. 2/3/24
 """
