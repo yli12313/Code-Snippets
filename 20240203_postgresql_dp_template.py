@@ -4,6 +4,8 @@ doing data preprocessing, and then writing to a new table.
 
 Date: Sat. 2/3/24
 """
+
+# Importing the required libraries.
 import pandas as pd
 from sqlalchemy import create_engine
 
