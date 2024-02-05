@@ -1,5 +1,5 @@
 """
-Description: Data pipeline with Luigi code template. 
+Description: Data pipeline with Luigi template. 
 
 Date: Wed. 1/31/24 @ 5:07 PM EST
 """
