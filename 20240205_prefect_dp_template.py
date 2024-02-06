@@ -1,7 +1,7 @@
 """
 Description: Data pipeline with Prefect template.
 
-Date: Sun. 2/5/24
+Date: Mon. 2/5/24
 """
 
 # Importing the required libraries.
