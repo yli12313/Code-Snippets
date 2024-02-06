@@ -10,27 +10,27 @@ from prefect.tasks.database import SQLiteScript
 from prefect.tasks.shell import ShellTask
 
 # Define the extract data task. Obviously when implementing your
-# own custom pipline, you have to change this.
+# own custom pipeline, you have to change this.
 @task
 def extract_data(database_url):
     data = SQLiteScript(database_url, script="SELECT * FROM your_table")
     return data
 
 # Define the transform data task. Obviously when implementing your
-# own custom pipline, you have to change this.
+# own custom pipeline, you have to change this.
 @task
 def transform_data(data):
     transformed_data = data
     return transformed_data
 
 # Define the load data task. Obviously when implementing your
-# own custom pipline, you have to change this.
+# own custom pipeline, you have to change this.
 @task
 def load_data(data):
     ShellTask(script=f"echo '{data}' > /path/to/your/output/file")
 
 # Defining a flow named "ETL". Notice that the flow takes in a parameter:
-# "database_url".
+# 'database_url'.
 with Flow("ETL") as flow:
     database_url = Parameter("database_url")
     data = extract_data(database_url)
