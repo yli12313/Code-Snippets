@@ -53,7 +53,9 @@ default_args = {
 }
 
 # DAG definition. DAG called 'data_pipeline' with default
-# arguments set to run daily.
+# arguments set to run daily. All the tasks have to fall within
+# the scope of this 'dag'. Moreover, the code line that sets
+# the task dependencies have to fall within this scope!
 with DAG('data_pipeline',
          default_args=default_args,
          schedule_interval='@daily',
