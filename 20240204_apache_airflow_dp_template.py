@@ -9,12 +9,12 @@ from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime
 
-# Define the extract function. Obviously when implementing your
+# Define the 'extract()' function. Obviously when implementing your
 # own custom pipeline, you have to change this.
 def extract(**kwargs):
     pass
 
-# Define the process function. Obviously when implementing your
+# Define the 'process()' function. Obviously when implementing your
 # own custom pipeline, you have to change this.
 def process(**kwargs):
     pass
