@@ -100,6 +100,7 @@ email_operator = EmailOperator(
     dag=dag
 )
 
+# Create DummyOperator task called 'end_execution'.
 end_operator = DummyOperator(
     task_id='end_execution',
     dag=dag
