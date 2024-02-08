@@ -26,7 +26,7 @@ dag = DAG(
     schedule_interval='@daily'
 )
 
-# Define the 'extract_task' operator that calls 'extract()'.
+# Create PythonOperator task called 'extract_task'.
 extract_task = PythonOperator(
     task_id='extract_task',
     python_callable=extract,
@@ -34,7 +34,7 @@ extract_task = PythonOperator(
     dag=dag
 )
 
-# Define the 'process_task' operator that calls 'process()'.
+# Create PythonOperator task called 'process_task'.
 process_task = PythonOperator(
     task_id='process_task',
     python_callable=process,
