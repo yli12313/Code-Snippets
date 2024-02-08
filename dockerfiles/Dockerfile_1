@@ -15,7 +15,7 @@ RUN apk update \
     && pip install --upgrade pip \
     && pip install psycopg2
 
-# Set the work directory.
+# Set the working directory.
 WORKDIR /usr/src/app
 
 # Copy contents of current directory to '/usr/src/app/' directory
@@ -29,10 +29,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # and name this stage 'final'.
 #  - In multi-stage builds, multiple 'FROM' statments are allowed.
 #  - Each 'FROM' statement can use a different base image and start
-#    new stage of the build.
+#    a new stage of the build.
 #  - You are allowed to copy artifacts from one stage to another;
-#    everything you don't want can be left behind and not in the
-#    final image.
+#    everything you don't want can be left behind and not included 
+#    in the final image.
 FROM base as final
 
 # Create a group and user.
