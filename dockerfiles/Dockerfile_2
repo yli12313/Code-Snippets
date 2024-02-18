@@ -1,0 +1,25 @@
+# Description: Dockerfile example 2.
+# Date: Wed. 2/9/24
+
+# The parent image is an official Python runtime.
+FROM python:3.8-slim-buster
+
+# Set the working directory inside the container.
+WORKDIR /app
+
+# Copy the contents of the current directory to the '/app'
+# directory inside the docker image.
+ADD . /app
+
+# Install any requisite libraries defined in 'requirements.txt'.
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
+# Make port 80 available to the world outside this container
+# (i.e. make the container listen on port 80).
+EXPOSE 80
+
+# Set environment variable NAME as World.
+ENV NAME World
+
+# Run 'app.py' when the container launches!
+CMD ["python", "app.py"]
