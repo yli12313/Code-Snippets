@@ -18,8 +18,8 @@ RUN apk update \
 # Set the working directory inside the container.
 WORKDIR /usr/src/app
 
-# Copy contents of current directory to '/usr/src/app/' directory
-# in the docker image.
+# Copy the contents of the current directory to the '/usr/src/app/' 
+# directory inside the docker image.
 COPY . /usr/src/app/
 
 # Install any requisite libraries defined in 'requirements.txt'.
