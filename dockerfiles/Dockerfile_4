@@ -1,0 +1,32 @@
+# Description: Dockerfile example 4. Uses multi-stage builds to separate
+# the installation of dependencies and running tests from the production
+# image.
+# Date: Sun. 2/11/24
+
+# Base Stage: Base stack that installs Node.js and Tini. Sets up the
+# working directory.
+FROM alpine:3.5 AS base
+RUN apk add --no-cache nodejs-current tini
+WORKDIR /app
+COPY package.json .
+
+# Dependencies Stage: Installs the production dependencies.
+FROM base AS dependencies
+RUN apk add --no-cache npm
+RUN npm set progress=false && npm config set depth 0
+RUN npm install --only=production
+COPY . .
+
+# Test Stage: Installs the development dependencies and runs the
+# tests.
+FROM dependencies AS test
+RUN apk add --no-cache npm
+RUN npm install --only=development
+CMD [ "npm", "test" ]
+
+# Release Stage: Creates the final Docker image; contains the base
+# layer and production dependencies.
+FROM base AS release
+COPY --from=dependencies /app .
+EXPOSE 3000
+CMD [ "npm", "start" ]
