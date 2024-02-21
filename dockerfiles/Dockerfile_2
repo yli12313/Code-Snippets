@@ -14,7 +14,7 @@ ADD . /app
 # Install any requisite libraries defined in 'requirements.txt'.
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
-# Make port 80 available to the world outside this container
+# Make port 80 available to the world outside this container.
 # (i.e. make the container listen on port 80).
 EXPOSE 80
 
