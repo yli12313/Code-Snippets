@@ -1,0 +1,35 @@
+# Description: Dockerfile example 3.
+# Date: Sat. 2/10/24
+
+# The parent image is an official Python runtime.
+FROM python:3.7-slim as builder
+
+# Set the working directory inside the container.
+WORKDIR /app
+
+# Copy the contents of the current directory to the '/app'
+# directory inside the docker image.
+ADD . /app
+
+# Upgrade 'pip' and install any requisite libraries defined in
+# 'requirements.txt'.
+# Q: What does --install-option="--prefix=/install" do?
+# A: Changes the installation location of the packages. Instead of
+# installing the packages to the default location, the packages are
+# installed to '/install'.
+RUN pip install --upgrade pip &&\
+    pip install --install-option="--prefix=/install" -r requirements.txt
+
+# Multi-stage build: Use parent image (an official Python runtime) as 
+# 'production' environment.
+FROM python:3.7-slim as production
+
+# Make a copy from the 'builder' stage. Copy from '/install' in 'builder'
+# to '/usr/local' in 'production', which is the current stage!
+COPY --from=builder /install /usr/local
+
+# Make port 80 available to the world outside this container.
+EXPOSE 80
+
+# Run 'app.py' when the container launches!
+CMD ["python", "app.py"]
