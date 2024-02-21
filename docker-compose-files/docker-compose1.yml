@@ -1,0 +1,35 @@
+# Description: Docker Compose example 1.
+# Date: Mon. 2/12/24
+
+version: '3'
+services:
+  # - The 'web' service is built using the Dockerfile in the 
+  # './web' directory.
+  # - It's exposed on 5000.
+  # - It depends on the 'db' service.
+  web:
+    build: ./web
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./web:/app
+    depends_on:
+      - db
+  # - The 'db' service uses the 'postgres:9.4' image.
+  # - It mounts a named volume for persistent data.
+  db:
+    image: postgres:9.4
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  # The 'redis' services uses the 'redis:alpine' image.
+  redis:
+    image: "redis:alpine"
+# - Named volumes are a type of Docker volume that can persist data
+# across container lifecycles.
+# - 'postgres_data' is a named volume. Docker automatically creates
+# a named volume and manages it's storage location.
+# - It can be used by services in the same 'docker-compose.yml'.
+# - Named volumes are essential for managing stateful applications in
+# Docker.
+volumes:
+  postgres_data:
