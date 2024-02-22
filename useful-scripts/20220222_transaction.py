@@ -68,8 +68,8 @@ def callback(
 
     return
 
-# The 'callback_wrapper()' should ideally be a lambda function, but it's done this way here for 
-# convenience!
+# The 'callback_wrapper()' should ideally be a lambda function, but it's done in the way
+# below for convenience!
 def callback_wrapper(s):
     callback(
         s,
