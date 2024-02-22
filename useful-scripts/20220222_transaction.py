@@ -68,6 +68,8 @@ def callback(
 
     return
 
+# The 'callback_wrapper()' should ideally be a lambda function, but it's done this way here for 
+# convenience!
 def callback_wrapper(s):
     callback(
         s,
@@ -77,7 +79,7 @@ def callback_wrapper(s):
         transfer_amount=100,
     )
 
-# Start a client session, then start a transaction. Remember: you are calling the 'callback_wrapper' here!
+# Start a client session, then start a transaction. Remember: you are calling the 'callback_wrapper()' here!
 with client.start_session() as session:
     session.with_transaction(callback_wrapper)
 
