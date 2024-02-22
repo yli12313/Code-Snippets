@@ -83,4 +83,5 @@ def callback_wrapper(s):
 with client.start_session() as session:
     session.with_transaction(callback_wrapper)
 
+# Close the client connection.
 client.close()
