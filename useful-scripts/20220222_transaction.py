@@ -77,7 +77,7 @@ def callback_wrapper(s):
         transfer_amount=100,
     )
 
-# Start a client session, then start a transaction.
+# Start a client session, then start a transaction. Remember: you are calling the 'callback_wrapper' here!
 with client.start_session() as session:
     session.with_transaction(callback_wrapper)
 
