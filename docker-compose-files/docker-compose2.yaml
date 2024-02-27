@@ -1,0 +1,52 @@
+# Description: Docker Compose example 2.
+# Date: Tue. 2/13/24
+
+# Notes:
+#   - Services and container are related but both are different things.
+#   - A service can be run by one or multiple containers.
+#   - With 'docker' you can handle containers and with 'docker-compose' you can 
+#     handle services.
+
+version: '3'
+services:
+  # Frontend service built from Dockerfile in the './web' directory.
+  # Exposed on port 80.
+  # Connects to the 'api' service.
+  web:
+    # Gives a Docker image a <name> and a <tag>.
+    image: my-web-app:latest
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    # 'web' service will not start until 'api' service has started.
+    depends_on:
+      - api
+  # Backend service built from Dockerfile in the './api' directory.
+  # Connects to the 'db' service using the 'DATABASE_URL' environment 
+  # variable.
+  api:
+    image: my-api:latest
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    # You can specify environment variables, which are then available to the 
+    # containers in your services.
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/mydatabase
+    depends_on:
+      - db
+  # Database service built from the 'postgres:latest' image. 
+  # Has volume 'db-data' for data persistence.
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydatabase
+    volumes:
+      - db-data:/var/lib/postgresql/data
+# Named volume used by the 'db' service.
+volumes:
+  db-data:
