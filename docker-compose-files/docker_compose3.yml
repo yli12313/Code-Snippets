@@ -1,0 +1,47 @@
+# Description: Docker Compose example 3.
+# Date: Wed. 2/14/24
+
+version: '3'
+services:
+  # 'web' service:
+  # - Built using a Dockerfile in a specific directory.
+  # - Exposes port 5000.
+  # - Mounts the current directory to '/code' in the container.
+  web:
+    build:
+      context: ./dir
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+    depends_on:
+      - redis
+    environment:
+      - FLASK_ENV=development
+  # 'redis' service:
+  # - Uses the 'redis:alpine' image.
+  redis:
+    image: "redis:alpine"
+  # 'db' service:
+  # - Uses the 'postgres' image.
+  # - Sets the 'POSTGRES_PASSWORD', which is an environment variable.
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: example
+  # 'worker' service:
+  # - Built using a Dockerfile located in './worker'.
+  # - Depends on two other services: 'db' and 'redis'.
+  # - Sets 'QUEUE' and 'WORKERS_COUNT' as environment variables.
+  worker:
+    build: ./worker
+    depends_on:
+      - db
+      - redis
+    environment:
+      - QUEUES=high,normal,low
+      - WORKERS_COUNT=5
+# Defines volume 'data_volume'.
+volumes:
+  data_volume:
