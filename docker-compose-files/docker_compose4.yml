@@ -1,0 +1,36 @@
+# Description: Docker Compose example 4.
+# Date: Thu. 2/15/24
+
+version: '3'
+services:
+  # 'web' service:
+  # - Built using the Dockerfile in the './dir' directory.
+  # - Mapped to port 5000.
+  # - Depends on the 'db' service.
+  # - The environment variable 'FLASK_ENV' for this 'web' service is set.
+  # - Mount the current directory to '/code' in the container.
+  web:
+    build:
+      context: ./dir
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      FLASK_ENV: development
+    volumes:
+      - .:/code
+  # 'db' service:
+  # - Built using the image 'postgres:9.6'.
+  # - Data is stored in a named volume called 'postgres_data'.
+  # - The environment variable 'POSTGRES_PASSWORD' for this 'db' service is set.
+  db:
+    image: postgres:9.6
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_PASSWORD: secret
+# Named volumn 'postgres_data' is defined.
+volumes:
+  postgres_data:
